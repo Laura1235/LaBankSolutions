@@ -163,6 +163,27 @@
               @endif
               {{-- End Roles--}}
 
+              {{-- Estado del Usuario --}}
+              @if (!auth()->user()->hasRole(2))
+              <div class="row">
+                <label for="status" class="col-sm-2 col-form-label">Estado del Usuario</label>
+                <div class="col-sm-7">
+                  <div class="form-group">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="status" value="1" {{ $user->status == 1 ? 'checked' : '' }}>
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                        Activo
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @endif
+              {{-- Fin Estado del Usuario --}}
+
             {{-- Numero de cuenta --}}
 
             <div class="row">

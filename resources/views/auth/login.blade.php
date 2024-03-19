@@ -7,6 +7,9 @@
             <h3>{{ __('Inicia Sesion Aquí') }}</h3>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+
+            
+
             <form class="form" method="POST" action="{{ route('login') }}">
                 @csrf
 
@@ -52,6 +55,12 @@
                         {{-- end Username --}}
 
                         {{-- numDocumento --}}
+
+                        @if(session('error'))
+                            <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                         </div>
+                        @endif
 
                         <div class="bmd-form-group{{ $errors->has('numDocumento') ? ' has-danger' : '' }}">
                             <div class="input-group">

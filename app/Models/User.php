@@ -28,6 +28,7 @@ class User extends Authenticatable
         'saldo',
         'username',
         'password',
+        'status'
     ];
 
     /**

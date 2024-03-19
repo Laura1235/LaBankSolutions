@@ -77,6 +77,9 @@ class UserController extends Controller
         //     $data['password']=bcrypt($request->password);
         // }
 
+        $user->status = $request->has('status') ? 1 : 0;
+        $user->save();
+        
         $user->update($data);
 
         $roles = $request->input('roles', []);
