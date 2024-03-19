@@ -14,6 +14,10 @@
             </div>
             <div class="card-body">
 
+              @php
+                $isUser = auth()->user()->hasRole(2);
+              @endphp
+              
               {{-- nombre user/admin --}}
               <div class="row">
                 <label for="name" class="col-sm-2 col-form-label">Nombre</label>
@@ -27,6 +31,18 @@
               {{-- end user/admin --}}
 
               {{-- UserName --}}
+
+              <div class="row">
+                <label for="username" class="col-sm-2 col-form-label">Nombre de usuario</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" name="username" value="{{ old('username', $user->username) }}" {{ $isUser ? 'readonly' : '' }}>
+                  @if ($errors->has('username'))
+                    <span class="error text-danger" for="input-username">{{ $errors->first('username') }}</span>
+                  @endif
+                </div>
+              </div>
+
+{{-- 
               <div class="row">
                 <label for="username" class="col-sm-2 col-form-label">Nombre de usuario</label>
                 <div class="col-sm-7">
@@ -35,7 +51,7 @@
                     <span class="error text-danger" for="input-username">{{ $errors->first('username') }}</span>
                   @endif
                 </div>
-              </div>
+              </div> --}}
               {{-- end UserName --}}
 
               {{-- Nombre --}}
@@ -43,7 +59,7 @@
               <div class="row">
                 <label for="nombreU" class="col-sm-2 col-form-label">Nombres</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="nombreU" placeholder="Ingrese los nombres" value="{{ old('nombreU', $user->nombreU) }}">
+                  <input type="text" class="form-control" name="nombreU" placeholder="Ingrese los nombres" value="{{ old('nombreU', $user->nombreU) }}" {{ $isUser ? 'readonly' : '' }}>
                   @if ($errors->has('nombreU'))
                     <span class="error text-danger" for="input-nombreU">{{ $errors->first('nombreU') }}</span>
                   @endif
@@ -57,7 +73,7 @@
               <div class="row">
                 <label for="apellidoU" class="col-sm-2 col-form-label">Apellidos</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="apellidoU" placeholder="Ingrese los apellidos" value="{{ old('apellidoU', $user->apellidoU) }}">
+                  <input type="text" class="form-control" name="apellidoU" placeholder="Ingrese los apellidos" value="{{ old('apellidoU', $user->apellidoU) }}" {{ $isUser ? 'readonly' : '' }}>
                   @if ($errors->has('apellidoU'))
                     <span class="error text-danger" for="input-apellidoU">{{ $errors->first('apellidoU') }}</span>
                   @endif
@@ -85,7 +101,7 @@
               <div class="row">
                 <label for="email" class="col-sm-2 col-form-label">Correo</label>
                 <div class="col-sm-7">
-                  <input type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}">
+                  <input type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}" {{ $isUser ? 'readonly' : '' }}>
                   @if ($errors->has('email'))
                     <span class="error text-danger" for="input-email">{{ $errors->first('email') }}</span>
                   @endif
@@ -93,19 +109,22 @@
               </div>
               {{-- End Correo --}}
 
+              @if (!$isUser)
               {{-- Contraseña --}}
               <div class="row">
                 <label for="password" class="col-sm-2 col-form-label">Contraseña</label>
                 <div class="col-sm-7">
-                  <input type="password" class="form-control" name="password" placeholder="Ingrese la contraseña sólo en caso de modificarla">
+                  <input type="password" class="form-control" name="password" placeholder="Ingrese la contraseña solo en caso de modificarla">
                   @if ($errors->has('password'))
                     <span class="error text-danger" for="input-password">{{ $errors->first('password') }}</span>
                   @endif
                 </div>
               </div>
               {{-- End Contraseña--}}
+              @endif
 
               {{-- Roles--}}
+              @if (!auth()->user()->hasRole(2))
               <div class="row">
                 <label for="name" class="col-sm-2 col-form-label">Roles</label>
                 <div class="col-sm-7">
@@ -140,15 +159,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            {{-- End Roles--}}
+              </div>
+              @endif
+              {{-- End Roles--}}
 
             {{-- Numero de cuenta --}}
 
             <div class="row">
               <label for="numCuenta" class="col-sm-2 col-form-label">Número de cuenta</label>
               <div class="col-sm-7">
-                <input type="text" class="form-control" name="numCuenta" placeholder="Ingrese el número de cuenta que asignara al usuario" value="{{ old('numCuenta', $user->numCuenta) }}">
+                <input type="text" class="form-control" name="numCuenta" placeholder="Ingrese el número de cuenta que asignara al usuario" value="{{ old('numCuenta', $user->numCuenta) }}" {{ $isUser ? 'readonly' : '' }}>
                 @if ($errors->has('numCuenta'))
                   <span class="error text-danger" for="input-numCuenta">{{ $errors->first('numCuenta') }}</span>
                 @endif

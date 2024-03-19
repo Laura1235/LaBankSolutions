@@ -21,6 +21,7 @@
                       <div class="col-12 text-right">
                         @can('user_create')
                         <a href="{{ route('users.create') }}" class="btn btn-sm btn-facebook">Añadir usuario</a>
+                        <a href="{{ route('users.report') }}" class="btn btn-sm btn-danger">Generar Reporte PDF</a>
                         @endcan
                       </div>
                     </div>

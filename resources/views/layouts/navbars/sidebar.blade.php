@@ -61,7 +61,7 @@
       <li class="nav-item{{ $activePage == 'posts' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('posts.index') }}">
           <i class="material-icons">library_books</i>
-            <p>{{ __('Post') }}</p>
+            <p>{{ __('Cuenta') }}</p>
         </a>
       </li>
       @endcan

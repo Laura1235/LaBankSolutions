@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserEditRequest;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Role;
@@ -93,5 +94,12 @@ class UserController extends Controller
 
         $user->delete();
         return back()->with('succes', 'Usuario eliminado correctamente');
+    }
+
+    public function generatePDF()
+    {
+        $users = User::all();
+        $pdf = Pdf::loadview('users.report', compact('users'));
+        return $pdf->download('reporte_usuarios.pdf');
     }
 }
