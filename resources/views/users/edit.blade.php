@@ -216,7 +216,13 @@
             <!--Footer-->
             <div class="card-footer ml-auto mr-auto">
               <button type="submit" class="btn btn-primary">Actualizar</button>
-              <a href="{{ route('users.index') }}" class="btn btn-success"> Volver </a>
+              @if(auth()->user()->hasRole(1))
+              {{-- Si el usuario es administrador --}}
+              <a href="{{ route('users.index') }}" class="btn btn-success">Volver al Panel de Administración</a>
+              @else
+              {{-- Si el usuario no es administrador (usuario regular) --}}
+              <a href="{{ route('posts.index') }}" class="btn btn-success">Volver</a>
+              @endif
             </div>
 
             <!--End footer-->

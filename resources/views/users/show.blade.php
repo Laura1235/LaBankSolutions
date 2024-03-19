@@ -57,6 +57,10 @@
                           <td>{{ $user->saldo }}</td>
                         </tr>
                         <tr>
+                          <th>Estado</th>
+                          <td>{{ $user->status }}</td>
+                        </tr>
+                        <tr>
                           <th>Roles</th>
                           <td>
                               @forelse ($user->roles as $role)

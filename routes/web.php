@@ -21,6 +21,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/users/report', [App\Http\Controllers\UserController::class, 'generatePDF'])->name('users.report');
 
+Route::get('/posts/index', [App\Http\Controllers\UserController::class, 'index'])->name('posts.index');
+
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('users.create');
     Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');

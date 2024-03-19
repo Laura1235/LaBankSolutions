@@ -112,6 +112,20 @@
 
               {{-- end numero de documento --}}
 
+              {{-- tipo de documento --}}
+
+              <div class="row">
+                <label for="status" class="col-sm-2 col-form-label">Estado de activación</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" name="status" value= 1 readonly>
+                  @if ($errors->has('status'))
+                    <span class="error text-danger" for="input-status">{{ $errors->first('status') }}</span>
+                  @endif
+                </div>
+              </div>              
+
+              {{-- end tipo de documento --}}
+
               <div class="row">
                 <label for="email" class="col-sm-2 col-form-label">Correo</label>
                 <div class="col-sm-7">
