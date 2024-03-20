@@ -77,14 +77,39 @@ class UserController extends Controller
         //     $data['password']=bcrypt($request->password);
         // }
 
+        if (auth()->user()->isAdmin) { 
         $user->status = $request->has('status') ? 1 : 0;
+        }
         $user->save();
         
         $user->update($data);
 
         $roles = $request->input('roles', []);
         $user->syncRoles($roles);
-        return redirect()->route('users.show', $user->id)->with('success', 'Usuario actualizado correctamente');
+
+        // Operacion Bancaria
+        $operationType = $request->input('operation_type');
+        $operationAmount = $request->input('operation_amount');
+
+        if ($operationType && $operationAmount) {
+        if ($operationType == 'add') {
+            $user->saldo += $operationAmount;
+        } elseif ($operationType == 'subtract') {
+            $user->saldo -= $operationAmount;
+        }
+
+        $user->save(); 
+
+    }
+        // fin de operacion bancaria
+
+        if (auth()->user()->isAdmin) { 
+            return redirect()->route('users.show', $user->id)->with('success', 'Actualizacion Correcta');
+        } else {
+            return redirect()->route('posts.index', $user->id)->with('success', 'Saldo actualizado de manera correcta');
+        }
+        
+        // return redirect()->route('users.show', $user->id)->with('success', 'Actualizacion Correcta');
     }
 
     public function destroy(User $user)

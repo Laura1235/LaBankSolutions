@@ -189,7 +189,7 @@
             <div class="row">
               <label for="numCuenta" class="col-sm-2 col-form-label">Número de cuenta</label>
               <div class="col-sm-7">
-                <input type="text" class="form-control" name="numCuenta" placeholder="Ingrese el número de cuenta que asignara al usuario" value="{{ old('numCuenta', $user->numCuenta) }}" {{ $isUser ? 'readonly' : '' }}>
+                <input type="text" class="form-control" name="numCuenta" placeholder="Numero de Cuenta" value="{{ old('numCuenta', $user->numCuenta) }}" {{ $isUser ? 'readonly' : '' }}>
                 @if ($errors->has('numCuenta'))
                   <span class="error text-danger" for="input-numCuenta">{{ $errors->first('numCuenta') }}</span>
                 @endif
@@ -203,7 +203,7 @@
             <div class="row">
               <label for="saldo" class="col-sm-2 col-form-label">Saldo</label>
               <div class="col-sm-7">
-                <input type="number" class="form-control" name="saldo" placeholder="Ingrese el saldo con el cual creara la cuenta (Opcional)" value="{{ old('saldo', $user->saldo) }}">
+                <input type="number" class="form-control" name="saldo" placeholder="0" value="{{ old('saldo', $user->saldo) }}" readonly>
                 @if ($errors->has('saldo'))
                   <span class="error text-danger" for="input-saldo">{{ $errors->first('saldo') }}</span>
                 @endif
@@ -211,6 +211,27 @@
             </div>
 
             {{-- end saldo --}}
+            
+            {{-- Operación en saldo --}}
+            @if (!auth()->user()->hasRole(1))
+            <div class="row">
+              <label for="operation" class="col-sm-2 col-form-label">Operación en Saldo</label>
+              <div class="col-sm-2">
+                <select class="form-control" name="operation_type">
+                  <option value="add">Abonar</option>
+                  <option value="subtract">Retirar</option>
+                </select>
+              </div>
+              <div class="col-sm-5">
+                <input type="number" class="form-control" name="operation_amount" placeholder="Cantidad que sea abonar o retirar" >
+                @if ($errors->has('operation_amount'))
+                  <span class="error text-danger">{{ $errors->first('operation_amount') }}</span>
+                @endif
+              </div>
+            </div>
+            @endif
+
+            {{-- end Operación en saldo --}}
 
             </div>
             <!--Footer-->
