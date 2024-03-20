@@ -66,26 +66,21 @@ class UserController extends Controller
         // $user=User::findOrFail($id);
         $data = $request->only('name', 'username','nombreU', 'apellidoU', 'tipoDocumento', 'numDocumento', 'numCuenta', 'saldo', 'email');
         $password=$request->input('password');
-        if($password)
+        if($password){
             $data['password'] = bcrypt($password);
-        // if(trim($request->password)=='')
-        // {
-        //     $data=$request->except('password');
-        // }
-        // else{
-        //     $data=$request->all();
-        //     $data['password']=bcrypt($request->password);
-        // }
-
+        }
+        
         if (auth()->user()->isAdmin) { 
         $user->status = $request->has('status') ? 1 : 0;
         }
+
         $user->save();
-        
         $user->update($data);
 
-        $roles = $request->input('roles', []);
-        $user->syncRoles($roles);
+        if ($request->filled('roles')) {
+            $roles = $request->input('roles', []);
+            $user->syncRoles($roles);
+        }
 
         // Operacion Bancaria
         $operationType = $request->input('operation_type');
@@ -103,13 +98,13 @@ class UserController extends Controller
     }
         // fin de operacion bancaria
 
-        if (auth()->user()->isAdmin) { 
-            return redirect()->route('users.show', $user->id)->with('success', 'Actualizacion Correcta');
-        } else {
-            return redirect()->route('posts.index', $user->id)->with('success', 'Saldo actualizado de manera correcta');
-        }
+        // if (auth()->user()->hasAny) { 
+        //     return redirect()->route('users.show', $user->id)->with('success', 'Actualizacion Correcta');
+        // } else {
+        //     return redirect()->route('posts.index', $user->id)->with('success', 'Su saldo fue actualizado');
+        // }
         
-        // return redirect()->route('users.show', $user->id)->with('success', 'Actualizacion Correcta');
+        return redirect()->route('posts.index', $user->id)->with('success', 'Actualizacion Correcta');
     }
 
     public function destroy(User $user)
