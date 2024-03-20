@@ -27,8 +27,9 @@ class CreateNewUser implements CreatesNewUsers
             'numDocumento' => ['required', 'string', Rule::unique(User::class),],
             'nombreU' => ['required', 'string', 'max:255'],
             'apellidoU' => ['required', 'string', 'max:255'],
-            'numCuenta' => ['nullable', 'integer', 'max:11'],
-            'saldo' => ['nullable', 'decimal', 'max:11'],
+            'status' => ['required', 'string', 'max:255'],
+            // 'numCuenta' => ['nullable', 'integer', 'max:11'],
+            // 'saldo' => ['nullable', 'decimal', 'max:11'],
             'email' => [
                 'required',
                 'string',
@@ -46,9 +47,10 @@ class CreateNewUser implements CreatesNewUsers
             'numDocumento' => $input['numDocumento'],
             'nombreU' => $input['nombreU'],
             'apellidoU' => $input['apellidoU'],
-            'numCuenta' => $input['apellidoU'],
-            'saldo' => $input['numCuenta'],
-            'email' => $input['saldo'],
+            // 'numCuenta' => $input['numCuenta'],
+            // 'saldo' => $input['saldo'],
+            'status' => $input['status'],
+            'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
 

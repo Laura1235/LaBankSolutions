@@ -15,7 +15,7 @@ class AddCuentasToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('numCuenta')->unique()->nullable();
-            $table->decimal('saldo', 8, 2)->nullable()->change();
+            $table->integer('saldo')->nullable();
         });
     }
 

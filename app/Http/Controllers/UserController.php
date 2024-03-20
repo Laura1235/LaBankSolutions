@@ -34,7 +34,7 @@ class UserController extends Controller
             // 'email' => 'required|email|unique:users',
             // 'password' => 'required'
         ]);
-        $user = User::create($request->only('name', 'username','nombreU', 'apellidoU', 'tipoDocumento', 'numDocumento', 'email')
+        $user = User::create($request->only('name', 'username','nombreU', 'apellidoU', 'tipoDocumento', 'numDocumento', 'status', 'email')
             + [
                 'password' => bcrypt($request->input('password')),
             ]);
