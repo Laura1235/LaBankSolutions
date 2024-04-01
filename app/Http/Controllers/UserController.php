@@ -62,50 +62,49 @@ class UserController extends Controller
     }
 
     public function update(UserEditRequest $request, User $user)
-    {
-        // $user=User::findOrFail($id);
-        $data = $request->only('name', 'username','nombreU', 'apellidoU', 'tipoDocumento', 'numDocumento', 'numCuenta', 'saldo', 'email');
-        $password=$request->input('password');
-        if($password){
-            $data['password'] = bcrypt($password);
-        }
-        
-        if (auth()->user()->isAdmin) { 
+{
+    $data = $request->only('name', 'username', 'nombreU', 'apellidoU', 'tipoDocumento', 'numDocumento', 'numCuenta', 'saldo', 'email');
+    $password = $request->input('password');
+    if ($password) {
+        $data['password'] = bcrypt($password);
+    }
+
+    // if (auth()->user()->isAdmin) {
         $user->status = $request->has('status') ? 1 : 0;
-        }
+    // }
 
-        $user->save();
-        $user->update($data);
+    $user->save();
+    $user->update($data);
 
-        if ($request->filled('roles')) {
-            $roles = $request->input('roles', []);
-            $user->syncRoles($roles);
-        }
-
-        // Operacion Bancaria
-        $operationType = $request->input('operation_type');
-        $operationAmount = $request->input('operation_amount');
-
-        if ($operationType && $operationAmount) {
-        if ($operationType == 'add') {
-            $user->saldo += $operationAmount;
-        } elseif ($operationType == 'subtract') {
-            $user->saldo -= $operationAmount;
-        }
-
-        $user->save(); 
-
+    if ($request->filled('roles')) {
+        $roles = $request->input('roles', []);
+        $user->syncRoles($roles);
     }
-        // fin de operacion bancaria
 
-        // if (auth()->user()->hasAny) { 
-        //     return redirect()->route('users.show', $user->id)->with('success', 'Actualizacion Correcta');
-        // } else {
-        //     return redirect()->route('posts.index', $user->id)->with('success', 'Su saldo fue actualizado');
-        // }
-        
-        return redirect()->route('posts.index', $user->id)->with('success', 'Actualizacion Correcta');
-    }
+    // Operacion Bancaria
+    // $operationType = $request->input('operation_type');
+    // $operationAmount = $request->input('operation_amount');
+
+    // if ($operationType && $operationAmount) {
+    //     if ($operationType == 'add') {
+    //         $user->saldo += $operationAmount;
+    //     } elseif ($operationType == 'subtract') {
+    //         // Verifica si la operación deja el saldo en negativo
+    //         if ($user->saldo - $operationAmount < 0) {
+    //             // Aquí puedes optar por devolver un mensaje de error sin actualizar el saldo
+    //             return redirect()->back()->with('error', 'La operación no se puede completar porque deja el saldo en negativo.');
+    //         } else {
+    //             $user->saldo -= $operationAmount;
+    //         }
+    //     }
+
+    //     $user->save();
+    // }
+    // fin de operacion bancaria
+
+    return redirect()->route('users.index', $user->id)->with('success', 'Actualizacion de datos correctamente');
+}
+
 
     public function destroy(User $user)
     {

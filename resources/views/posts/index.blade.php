@@ -50,7 +50,7 @@
                               <a href="{{ route('users.show', $user->id) }}" class="btn btn-info"><i class="material-icons">person</i></a>
                               @endcan
                               @can('user_edit')
-                              <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning"><i class="material-icons">edit</i></a>
+                              <a href="{{ route('posts.edit', $user->id) }}" class="btn btn-warning"><i class="material-icons">edit</i></a>
                               @endcan
                               @can('user_destroy')
                               <form action="{{ route('users.delete', $user->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Seguro?')">

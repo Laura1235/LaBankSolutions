@@ -18,6 +18,14 @@
                 $isUser = auth()->user()->hasRole(2);
               @endphp
               
+
+              @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+
               {{-- nombre user/admin --}}
               <div class="row">
                 <label for="name" class="col-sm-2 col-form-label">Nombre</label>

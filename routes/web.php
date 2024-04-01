@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/users/report', [App\Http\Controllers\UserController::class, 'generatePDF'])->name('users.report');
 
 Route::get('/posts/index', [App\Http\Controllers\UserController::class, 'index'])->name('posts.index');
+
+// Route::get('/posts/{user}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('posts.edit');
+Route::get('/posts/{user}/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/{user}', [PostController::class, 'update'])->name('posts.update');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('users.create');
